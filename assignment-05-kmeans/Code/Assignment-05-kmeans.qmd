@@ -1,0 +1,145 @@
+---
+title: "Assignment 5 - K-means"
+author: "Meghan Stewart"  
+format:
+  html:
+    code-fold: true 
+    embed-resources: true
+    toc: true
+    number-sections: true
+    theme: cerulean
+---
+
+# Goal of this assignment  
+The goal of this assignment is for you to **explore the k-means algorithm** learned in class.  
+
+In specific, you will be asked to:  
+  - Use a different number of k than what we did in class,  
+  - Validate the results of the new model, and  
+  - Compare your results with those found in class  
+
+# Instructions  
+You will first need to watch (and code along with) the following k-means video:
+
+  - k-means lab: https://youtu.be/GFgMp5tYiMU?si=CI0E-2r-cYZLGVL1 (start from beginning of video, watch till the 01:10)  
+  - The partial script for the video above is in our GitHub repository, 04-classcode, **02-24_multivar_kmeans_partial.qmd**. Move the script mentioned above into the `code` subfolder of your `06_multivar` project
+  
+**AFTER watching the video and developing the code in class**, then start working on this HW assignment (instructions below):
+  - Move this script into the `code` subfolder of your `06_multivar` project  
+  - On this script, fill your name under the `title` section of the YAML  
+  - Go back to the class k-means script, choose a different number of k than what we did in class, and run it.    
+  
+```{r package loading}
+library(tidyverse)
+library(ggcorrplot)
+library(broom)
+library(car)
+library(factoextra)
+library(ggpmisc)
+```
+```{r dataset}
+weather <- read.csv("C:/Users/megha/Documents/Crop_Soil_Stats/06_multivar/DATA/weather_monthsum.csv")
+
+#sumary(weather)
+```
+  
+  
+```{r numeric only selection}
+weather_n <- weather %>%
+  dplyr::select(-c(year:strength_gtex))
+
+#weather_n
+
+```
+  
+  
+```{r get normal data}
+# normalizing the data
+weather_norm  <- weather_n %>%
+  mutate(across(everything(), ~scale(.x)))
+
+#weather_norm
+```
+  
+  
+```{r k means modeling}
+mod_km <- kmeans(weather_norm,
+                 centers = 5,
+                 nstart = 10)
+
+mod_km
+
+```
+
+```{r mod_km4 }
+mod_km4 <- kmeans(weather_norm,
+                  centers = 4, 
+                  nstart = 10
+                  )
+
+mod_km4
+```
+
+
+# Questions  
+## 1. What number of k did you select? Why?  
+
+***5, because it was close to 4 and would likely have similar power to paritition the data while minimizing total clusters created. ***
+
+
+## 2. How many observations are there in each cluster?  
+
+```{r observations}
+weather %>%
+  mutate(cluster = mod_km$cluster) %>%
+  group_by(cluster) %>%
+  tally()
+```
+***There are 236, 16, 56, 182, and 208 observations in each cluster.***
+
+## 3. Using the `fviz_cluster()` function, import here the original plot with k=4 did in class, and the new plot with the number of k you selected for this exercise. How do they visually compare? Which one seems to be a better choice, and why?  
+***First we have the original plot for k =4 below:***
+```{r cluster 4 }
+fviz_cluster(mod_km4,
+             data = weather_norm
+             )
+
+
+```
+
+***This second plot shows k=5 below:***
+
+```{r cluster 5}
+fviz_cluster(mod_km,
+             data = weather_norm
+             )
+
+
+```
+***Visually comparing the two, changing k=4 to k=5 did create a visually distinct and separate cluster for the green versus pink groups. This may tell us something more is going on that is explained better with greater clusters, and in such a case a number like 6 may even be better for distinguishing what looks like two smaller but separate clusters within the green cluster for k=5. The plot for k=4, however, does a better job combining the blue and pink cluster, which look like they have a some overlap in the plot for k = 5. Overall, I think k=5 is better since clearly there are some visually distinct clusters of observations with no overlap (pink versus green) that did not get well separated with k=4 ***
+
+# Submitting your work  
+Once you have developed all the code and answers, make sure to Render this quarto file.  
+
+**Notes on rendering**:  
+
+- Make sure to render your work and inspect how the final html look like.  
+- If it does not look professional for whatever reason, then fix the issue, re-render it, recheck.  
+- Only send me your work once your html file looks professional.  
+  - **DO NOT** delete the file's heading levels (# and ##). They set up the proper heading 1 and 2 levels, and I use them to guide my grading.  
+  - If a given chunk is also outputting warnings or messages, inhibit this behavior by changing the chunk options `message` and `warning` to `FALSE` (I'll demo this in a moment).  
+  
+  - If, after rendered, 2 lines of text are connected and you wish to "break line" between them, add 2 extra spaces after the first one (I'lld demo this in a moment).  
+
+After rendering, an .html file will be created on your `code` folder.  
+
+Rename this file to `Assignment-05-kmeans-LASTNAME.html`.    
+
+For ex., mine would be `Assignment-05-kmeans-Bastos.html`.
+
+Submit your work by uploading the **html** file to **eLC Assignment #5 - K-means** by Monday March 2nd 11:59 pm.  
+  
+
+
+
+
