@@ -1,0 +1,81 @@
+---
+title: "Assignment 8 - Elastic net reading material"
+author: "Meghan Stewart "  
+format:
+  html:
+    code-fold: true 
+    embed-resources: true
+    toc: true
+    number-sections: false
+    theme: cerulean
+---
+
+# Goal of this assignment  
+The goal of this assignment is for you to read some e-book chapters and answer some questions related to it.  
+
+In specific, you will be asked to read two resources:  
+
+1) Tidy modeling with R e-book:  
+  - Read **Chapter 1 - Software for modeling** (https://www.tmwr.org/software-modeling)  
+
+
+
+2) Hands-on ML with R e-book:  
+  - Read **Chapter 6 - Regularized Regression**: https://bradleyboehmke.github.io/HOML/regularized-regression.html 
+
+# Instructions  
+Read the materials above and answer the following questions, on this file:     
+
+# Questions  
+## 1. What is the difference between regression and classification? What is the main part of the model that changes? Provide an example of each.    
+
+**Regression is used for predicting numerical results, while classification predicts a result from qualitative data that is ordered or  not ordered. The main part of a regression model that changes is the numerical predictor variable (independent), and the predicted numerical variable (dependent).An example of this model would be a descriptive smoother which helps describe data trends in more specialized terms than just performing simple linear regression, such as for weather temperature data points over time. A classification model example might be K Nearest Neighbors (KNN) for a set of qualitative data such as color of cat species. **
+
+
+## 2. List the general phases of a typical path to determining an appropriate model.    
+
+**After performing necessary exploratory data analysis and data wrangling, initial feature engineering takes place while initial models are subsequently tested. The best models during evaluation move on to more feature engineering and exploratory data analysis, followed by another round of modeling with the refined models. The final models might be validated using additional data or evaluated in another way before the final model is settled upon and documentation is made. **
+
+
+## 3. Under which cases is regularization helpful?  
+
+**Regularization methods are often employed when a need exists to constrain the amount of estimated coefficients in a linear model. This is important in particular for large dataset cases with several features, which causes certain assumptions to break down and overfitting to increase in risk for the training data being assessed. This leads to inflated sample error. Regularization can help reduce variance and sample error by constraining the estimated coefficients such as in ordinary least squares regression, where the model's function of minimizing sum of squared errors between observed and predicted responses is greatly impacted by the number of features being greater than observations. **
+
+
+## 4. What are the three common penalty parameters we can implement when regularizing a model? List their names and explain how they operate.   
+
+**1. Ridge: this parameter adds a modifying equation to the objective function to help control the estimated coefficients. The tuning parameter can be used to control the size of penalty that pushes coefficients towards zero. This helps push correlated variables towards each other while less important features approach zero. **
+
+
+**2. Lasso: this parameter uses a simpler modifying equation to the base function compared to Ridge, where less important coefficients are actually pushed all the way to zero. This is useful for automated feature selection where only the largest signals variables are retained and extracted. **
+
+**3. Elastic net (ENET): this method combines two penalties that modify the objective function. This helps combine the ability of ridge regression to handle correlated features together with the ability of lasso to push one fully to zero for a more robust regularization process with some feature selection also occurring . **
+
+
+
+
+# Submitting your work  
+Once you have developed all the code and answers, make sure to Render this quarto file.  
+
+**Notes on rendering**:  
+
+- Make sure to render your work and inspect how the final html look like.  
+- If it does not look professional for whatever reason, then fix the issue, re-render it, recheck.  
+- Only send me your work once your html file looks professional.  
+  - **DO NOT** delete the file's heading levels (# and ##). They set up the proper heading 1 and 2 levels, and I use them to guide my grading.  
+  - If a given chunk is also outputting warnings or messages, inhibit this behavior by changing the chunk options `message` and `warning` to `FALSE` (I'll demo this in a moment).  
+  
+  - If, after rendered, 2 lines of text are connected and you wish to "break line" between them, add 2 extra spaces after the first one (I'lld demo this in a moment).  
+
+After rendering, an .html file will be created on your `code` folder.  
+
+Rename this file to `Assignment-08-enetread-LASTNAME.html`.    
+
+For ex., mine would be `Assignment-08-enetread-Bastos.html`.
+
+Submit your work by uploading the **html** file to **eLC Assignment #8 - Elastic net read** by Wednesday March 18 11:59 pm.  
+  
+
+
+
+
